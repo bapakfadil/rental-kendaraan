@@ -11,9 +11,9 @@
                 <div class="p-6 text-gray-900">
                     <a href="{{ route('vehicles.create') }}" class="btn btn-primary mb-3">Tambah Kendaraan</a>
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="thead-light">
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Jenis</th>
                                 <th>Merek</th>
                                 <th>Model</th>
@@ -36,12 +36,12 @@
                                 <td>{{ $vehicle->capacity }}</td>
                                 <td>{{ $vehicle->rental_price }}</td>
                                 <td>
-                                    <a href="{{ route('vehicles.show', $vehicle->id) }}" class="btn btn-info">Detail</a>
-                                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="btn btn-warning">Edit</a>
-                                    <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('vehicles.show', $vehicle->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST" class="d-inline" id="deleteForm{{ $vehicle->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeletion({{ $vehicle->id }})">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -53,3 +53,12 @@
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function confirmDeletion(id) {
+        if (confirm('Apakah Anda yakin ingin menghapus kendaraan ini?')) {
+            $('#deleteForm' + id).submit();
+        }
+    }
+</script>
