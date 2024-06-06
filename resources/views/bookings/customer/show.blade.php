@@ -23,9 +23,6 @@
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('bookings.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
-                                @if(auth()->user()->role === 'admin')
-                                    <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-warning">Edit</a>
-                                @endif
                                 <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="d-inline" id="deleteForm{{ $booking->id }}">
                                     @csrf
                                     @method('DELETE')

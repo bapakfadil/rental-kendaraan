@@ -16,16 +16,15 @@
                                 <h2>Booking #{{ $booking->id }}</h2>
                             </div>
                             <div class="card-body">
+                                <p><strong>Nama Pelanggan:</strong> {{ $booking->user->name }}</p>
                                 <p><strong>Kendaraan:</strong> {{ $booking->vehicle->model }}</p>
                                 <p><strong>Tanggal Mulai:</strong> {{ $booking->start_date }}</p>
                                 <p><strong>Tanggal Akhir:</strong> {{ $booking->end_date }}</p>
                                 <p><strong>Status:</strong> {{ $booking->status }}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('bookings.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
-                                @if(auth()->user()->role === 'admin')
-                                    <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-warning">Edit</a>
-                                @endif
+                                <a href="{{ route('bookings.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
+                                <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="d-inline" id="deleteForm{{ $booking->id }}">
                                     @csrf
                                     @method('DELETE')

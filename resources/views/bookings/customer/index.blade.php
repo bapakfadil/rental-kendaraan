@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Daftar Booking') }}
+            {{ __('Riwayat Booking') }}
         </h2>
     </x-slot>
 
@@ -9,13 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if(auth()->user()->role === 'admin')
-                        <h3>Booking oleh Admin</h3>
-                        <a href="{{ route('bookings.create') }}" class="btn btn-primary mb-3">Tambah Booking</a>
-                    @else
-                        <h3>Booking oleh Pelanggan</h3>
-                    @endif
-
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
@@ -37,9 +30,6 @@
                                 <td>{{ $booking->status }}</td>
                                 <td>
                                     <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                    @if(auth()->user()->role === 'admin')
-                                        <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    @endif
                                     <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="d-inline" id="deleteForm{{ $booking->id }}">
                                         @csrf
                                         @method('DELETE')
