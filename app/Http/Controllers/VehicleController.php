@@ -1,34 +1,18 @@
 <?php
 
-// VehicleController.php
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Vehicle::query();
-
-        if ($request->has('type')) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->has('brand')) {
-            $query->where('brand', 'like', '%' . $request->brand . '%');
-        }
-
-        if ($request->has('price_min') && $request->has('price_max')) {
-            $query->whereBetween('rental_price', [$request->price_min, $request->price_max]);
-        }
-
-        $vehicles = $query->get();
-
+        $vehicles = Vehicle::all();
         return view('vehicles.index', compact('vehicles'));
     }
-
 
     public function create()
     {
@@ -37,35 +21,73 @@ class VehicleController extends Controller
 
     public function store(Request $request)
     {
-        $vehicle = new Vehicle($request->all());
-        $vehicle->save();
-        return redirect()->route('vehicles.index');
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'plate_number' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'capacity' => 'required|integer',
+            'rental_price' => 'required|numeric',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('vehicles', 'public');
+            $validated['image'] = $path;
+        }
+
+        Vehicle::create($validated);
+
+        return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil ditambahkan.');
     }
 
-    public function show($id)
+    public function show(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
         return view('vehicles.show', compact('vehicle'));
     }
 
-    public function edit($id)
+    public function edit(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
         return view('vehicles.edit', compact('vehicle'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        $vehicle->update($request->all());
-        return redirect()->route('vehicles.index');
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'plate_number' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'capacity' => 'required|integer',
+            'rental_price' => 'required|numeric',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($vehicle->image) {
+                Storage::disk('public')->delete($vehicle->image);
+            }
+            $path = $request->file('image')->store('vehicles', 'public');
+            $validated['image'] = $path;
+        }
+
+        $vehicle->update($validated);
+
+        return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function destroy(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
+        if ($vehicle->image) {
+            Storage::disk('public')->delete($vehicle->image);
+        }
+
         $vehicle->delete();
-        return redirect()->route('vehicles.index');
+
+        return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil dihapus.');
     }
 }
+
 
