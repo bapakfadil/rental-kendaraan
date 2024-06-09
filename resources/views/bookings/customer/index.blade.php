@@ -9,6 +9,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
@@ -30,11 +40,14 @@
                                 <td>{{ $booking->status }}</td>
                                 <td>
                                     <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                    <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="d-inline" id="deleteForm{{ $booking->id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeletion({{ $booking->id }})">Hapus</button>
-                                    </form>
+                                    @if ($booking->status == 'pending' || $booking->status == 'payment_pending')
+                                        <a href="{{ route('customer.bookings.uploadPayment', $booking->id) }}" class="btn btn-warning btn-sm">Upload Pembayaran</a>
+                                        <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancellation({{ $booking->id }})">Batalkan</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -46,11 +59,10 @@
     </div>
 </x-app-layout>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function confirmDeletion(id) {
-        if (confirm('Apakah Anda yakin ingin menghapus booking ini?')) {
-            $('#deleteForm' + id).submit();
+    function confirmCancellation(id) {
+        if (confirm('Apakah Anda yakin ingin membatalkan booking ini?')) {
+            document.querySelector('form[action*="' + id + '"]').submit();
         }
     }
 </script>

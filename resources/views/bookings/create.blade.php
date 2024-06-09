@@ -12,14 +12,6 @@
                     <form action="{{ route('bookings.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="user_id">Pelanggan</label>
-                            <select name="user_id" id="user_id" class="form-control">
-                                @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="vehicle_id">Kendaraan</label>
                             <select name="vehicle_id" id="vehicle_id" class="form-control">
                                 @foreach($vehicles as $vehicle)
@@ -34,14 +26,6 @@
                         <div class="form-group">
                             <label for="end_date">Tanggal Akhir</label>
                             <input type="date" name="end_date" id="end_date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="pending">Pending</option>
-                                <option value="confirmed">Confirmed</option>
-                                <option value="completed">Completed</option>
-                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
