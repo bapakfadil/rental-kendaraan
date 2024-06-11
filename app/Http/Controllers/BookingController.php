@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,7 +92,23 @@ class BookingController extends Controller
 
     public function uploadPaymentProof(Request $request, $id)
     {
-        // Kode untuk mengunggah bukti pembayaran
+        $validated = $request->validate([
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $booking = Booking::findOrFail($id);
+
+        if ($request->hasFile('payment_proof')) {
+            $image = $request->file('payment_proof');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            $booking->payment_proof = $name;
+            $booking->status = 'payment_pending';
+            $booking->save();
+        }
+
+        return redirect()->route('bookings.index')->with('success', 'Bukti pembayaran berhasil diunggah.');
     }
 
     public function customerBookings()
@@ -138,7 +155,7 @@ class BookingController extends Controller
             $destinationPath = public_path('/uploads');
             $image->move($destinationPath, $name);
             $booking->payment_proof = $name;
-            $booking->status = 'payment_pending';
+            $booking->status = 'payment_pending'; // Pastikan status adalah string yang valid
             $booking->save();
         }
 

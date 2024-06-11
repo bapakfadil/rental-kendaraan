@@ -4,30 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateBookingsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('vehicle_id')->constrained();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
-            $table->enum('status', ['new', 'confirmed', 'canceled', 'completed']);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('vehicle_id');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('status')->default('pending'); // Kolom status sebagai string
+            $table->string('payment_proof')->nullable();
             $table->timestamps();
-        });
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('bookings');
     }
-};
+}
+
