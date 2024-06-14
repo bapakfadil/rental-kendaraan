@@ -38,6 +38,9 @@
                                         @method('DELETE')
                                         <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeletion({{ $booking->id }})">Hapus</button>
                                     </form>
+                                    @if ($booking->status == 'pending')
+                                        <a href="{{ route('admin.bookings.verifyPayment', $booking->id) }}" class="btn btn-success btn-sm">Verifikasi Pembayaran</a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

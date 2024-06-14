@@ -29,6 +29,13 @@ class BookingController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
+        // Cek ketersediaan kendaraan
+        $isAvailable = $this->checkAvailability($request->vehicle_id, $request->start_date, $request->end_date);
+
+        if (!$isAvailable) {
+            return redirect()->back()->withErrors(['error' => 'Kendaraan tidak tersedia pada tanggal yang dipilih.']);
+        }
+
         $booking = new Booking();
         $booking->user_id = Auth::id();
         $booking->vehicle_id = $request->vehicle_id;
@@ -39,6 +46,24 @@ class BookingController extends Controller
 
         return redirect()->route('customer.bookings')->with('success', 'Booking berhasil dibuat.');
     }
+
+    private function checkAvailability($vehicleId, $startDate, $endDate)
+    {
+        $conflictingBookings = Booking::where('vehicle_id', $vehicleId)
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('start_date', [$startDate, $endDate])
+                    ->orWhereBetween('end_date', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('start_date', '<=', $startDate)
+                            ->where('end_date', '>=', $endDate);
+                    });
+            })
+            ->where('status', '!=', 'cancelled')
+            ->exists();
+
+        return !$conflictingBookings;
+    }
+
 
     public function show($id)
     {
