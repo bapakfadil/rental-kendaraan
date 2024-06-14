@@ -179,4 +179,15 @@ class BookingController extends Controller
         return redirect()->route('bookings.index')->with('success', 'Pembayaran berhasil dikonfirmasi.');
     }
 
+    // Menolak pembayaran dan mengubah status booking
+    public function rejectPayment(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->status = 'payment_rejected';
+        $booking->save();
+
+        return redirect()->route('bookings.index')->with('success', 'Pembayaran ditolak. Customer diminta mengunggah ulang bukti pembayaran.');
+    }
+
+
 }

@@ -15,10 +15,16 @@
                         <img src="{{ url('/uploads/' . $booking->payment_proof) }}" alt="Bukti Pembayaran" class="img-fluid">
                     </div>
 
-                    <form action="{{ route('admin.bookings.confirmPayment', $booking->id) }}" method="POST">
+                    <form action="{{ route('admin.bookings.confirmPayment', $booking->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-success">Konfirmasi Pembayaran</button>
+                    </form>
+
+                    <form action="{{ route('admin.bookings.rejectPayment', $booking->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-danger">Tolak Pembayaran</button>
                     </form>
                 </div>
             </div>

@@ -34,19 +34,21 @@
                             @foreach($bookings as $booking)
                             <tr>
                                 <td>{{ $booking->id }}</td>
-                                <td>{{ $booking->vehicle->model }}</td>
+                                <td>{{ $booking->vehicle ? $booking->vehicle->model : 'Kendaraan tidak ditemukan' }}</td>
                                 <td>{{ $booking->start_date }}</td>
                                 <td>{{ $booking->end_date }}</td>
                                 <td>{{ $booking->status }}</td>
                                 <td>
                                     <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                    @if ($booking->status == 'pending' || $booking->status == 'payment_pending')
+                                    @if ($booking->status == 'pending' || $booking->status == 'payment_pending' || $booking->status == 'payment_rejected')
                                         <a href="{{ route('customer.bookings.uploadPayment', $booking->id) }}" class="btn btn-warning btn-sm">Upload Pembayaran</a>
-                                        <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancellation({{ $booking->id }})">Batalkan</button>
-                                        </form>
+                                        @if ($booking->status != 'payment_rejected')
+                                            <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancellation({{ $booking->id }})">Batalkan</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
