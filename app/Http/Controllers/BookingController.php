@@ -161,4 +161,22 @@ class BookingController extends Controller
 
         return redirect()->route('customer.bookings')->with('success', 'Bukti pembayaran berhasil diunggah.');
     }
+
+    // Menampilkan halaman verifikasi pembayaran untuk admin
+    public function verifyPayment($id)
+    {
+        $booking = Booking::findOrFail($id);
+        return view('bookings.admin.verify_payment', compact('booking'));
+    }
+
+    // Mengonfirmasi pembayaran dan mengubah status booking
+    public function confirmPayment(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->status = 'confirmed';
+        $booking->save();
+
+        return redirect()->route('bookings.index')->with('success', 'Pembayaran berhasil dikonfirmasi.');
+    }
+
 }

@@ -52,4 +52,11 @@ Route::middleware(['auth', 'role:customer,admin'])->group(function () {
     Route::put('customer/bookings/{id}/upload-payment', [BookingController::class, 'processPayment'])->name('customer.bookings.processPayment');
 });
 
+// Route untuk admin memverifikasi bukti transfer
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('admin/bookings/{id}/verify-payment', [BookingController::class, 'verifyPayment'])->name('admin.bookings.verifyPayment');
+    Route::put('admin/bookings/{id}/confirm-payment', [BookingController::class, 'confirmPayment'])->name('admin.bookings.confirmPayment');
+});
+
+
 require __DIR__.'/auth.php';
