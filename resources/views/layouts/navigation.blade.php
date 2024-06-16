@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        {{-- <x-application-logo class="block h-9 w-auto fill-current" /> --}}
+                        <img src="{{ asset('assets/static/images/logo/logo-pmt.svg') }}" alt="Logo" class="block h-14 w-auto" />
                     </a>
                 </div>
 
@@ -15,6 +16,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(Auth::user()->role == 'admin')
+                        <x-nav-link :href="route('vehicles.index')" :active="request()->routeIs('vehicles.*')">
+                            {{ __('Manajemen Kendaraan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
+                            {{ __('Manajemen Pemesanan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.*')">
+                            {{ __('Manajemen Pelanggan') }}
+                        </x-nav-link>
+                    @elseif(Auth::user()->role == 'customer')
+                        <x-nav-link :href="route('customer.bookings')" :active="request()->routeIs('customer.bookings')">
+                            {{ __('Riwayat Pemesanan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('bookings.create')" :active="request()->routeIs('bookings.create')">
+                            {{ __('Pesan Kendaraan') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +89,24 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(Auth::user()->role == 'admin')
+                <x-responsive-nav-link :href="route('vehicles.index')" :active="request()->routeIs('vehicles.*')">
+                    {{ __('Manajemen Kendaraan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
+                    {{ __('Manajemen Pemesanan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.*')">
+                    {{ __('Manajemen Pelanggan') }}
+                </x-responsive-nav-link>
+            @elseif(Auth::user()->role == 'customer')
+                <x-responsive-nav-link :href="route('customer.bookings')" :active="request()->routeIs('customer.bookings')">
+                    {{ __('Riwayat Pemesanan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('bookings.create')" :active="request()->routeIs('bookings.create')">
+                    {{ __('Pesan Kendaraan') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
