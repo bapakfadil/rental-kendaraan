@@ -789,20 +789,20 @@ a:focus {
 
 .blog_section .owl-carousel .owl-nav .owl-prev {
     left: calc(95% - 45px);
-    background-image: url(../images/left-angle.png);
+    background-image: url("/images/landing-page/left-angle.png");
 }
 
 .blog_section .owl-carousel .owl-nav .owl-prev:hover {
-    background-image: url(../images/left-angle-grey.png);
+    background-image: url("/images/landing-page/left-angle-grey.png");
 }
 
 .blog_section .owl-carousel .owl-nav .owl-next {
     right: calc(5% - 45px);
-    background-image: url(../images/right-angle.png);
+    background-image: url("/images/landing-page/right-angle.png");
 }
 
 .blog_section .owl-carousel .owl-nav .owl-next:hover {
-    background-image: url(../images/right-angle-grey.png);
+    background-image: url("/images/landing-page/right-angle-grey.png");
 }
 
 .us_section .heading_container {

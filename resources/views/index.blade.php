@@ -13,6 +13,9 @@
 
         <title>Pujangga Trans</title>
 
+        <!-- Title logo -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('assets/static/images/logo/logo-pmt.svg') }}" />
+
         <!-- slider stylesheet -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
@@ -39,11 +42,20 @@
 
                         <div class="navbar-collapse" id="">
                             <div class="user_option">
-                                <a href="{{ route('login') }}">
-                                    Login
-                                </a>
+                                @auth
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-light mt-2" type="submit">Keluar</button>
+                                        <a class="btn btn-warning mt-2" href="{{ route('dashboard') }}">Dashboard</a>
+                                    </form>
+                                @else
+                                    <div class="mt-2">
+                                        <a class="btn btn-warning mt-2 mr-2" href="{{ route('login') }}">Masuk</a>
+                                        <a class="btn btn-warning mt-2" href="{{ route('register') }}">Daftar</a>
+                                    </div>
+                                @endauth
                             </div>
-                            <div class="custom_menu-btn">
+                            {{-- <div class="custom_menu-btn">
                                 <button onclick="openNav()">
                                     <span class="s-1"> </span>
                                     <span class="s-2"> </span>
@@ -52,11 +64,11 @@
                             </div>
                             <div id="myNav" class="overlay">
                                 <div class="overlay-content">
-                                    <a href="{{ route('login') }}">Login</a>
+                                    <a href="{{ route('login') }}">Masuk</a>
                                     <a href="{{ route('register') }}">Daftar</a>
                                     <a href="{{ route('dashboard') }}">Dashboard</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </nav>
                 </div>
