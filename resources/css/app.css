@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+.bg-custom {
+    background-image: url("/assets/static/images/landing-page/hero-img.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
