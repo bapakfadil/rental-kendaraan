@@ -19,7 +19,7 @@
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Kendaraan</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>

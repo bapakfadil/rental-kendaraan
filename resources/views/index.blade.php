@@ -13,6 +13,9 @@
 
         <title>Pujangga Trans</title>
 
+        <!-- Title logo -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('assets/static/images/logo/logo-pmt.svg') }}" />
+
         <!-- slider stylesheet -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
@@ -39,23 +42,18 @@
 
                         <div class="navbar-collapse" id="">
                             <div class="user_option">
-                                <a href="{{ route('login') }}">
-                                    Login
-                                </a>
-                            </div>
-                            <div class="custom_menu-btn">
-                                <button onclick="openNav()">
-                                    <span class="s-1"> </span>
-                                    <span class="s-2"> </span>
-                                    <span class="s-3"> </span>
-                                </button>
-                            </div>
-                            <div id="myNav" class="overlay">
-                                <div class="overlay-content">
-                                    <a href="{{ route('login') }}">Login</a>
-                                    <a href="{{ route('register') }}">Daftar</a>
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
-                                </div>
+                                @auth
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-light mt-2" type="submit">Keluar</button>
+                                        <a class="btn btn-warning mt-2" href="{{ route('dashboard') }}">Dashboard</a>
+                                    </form>
+                                @else
+                                    <div class="mt-2">
+                                        <a class="btn btn-warning mt-2 mr-2" href="{{ route('login') }}">Masuk</a>
+                                        <a class="btn btn-warning mt-2" href="{{ route('register') }}">Daftar</a>
+                                    </div>
+                                @endauth
                             </div>
                         </div>
                     </nav>
@@ -187,6 +185,30 @@
                         </div>
                         <div class="price">
                             <a href="">Rent Rp 350.000</a>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="{{ asset('assets/static/images/landing-page/r-4.png') }}" alt="">
+                        </div>
+                        <div class="price">
+                            <a href="">Rent Rp 300.000</a>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="{{ asset('assets/static/images/landing-page/r-5.webp') }}" alt="">
+                        </div>
+                        <div class="price">
+                            <a href="">Rent Rp 350.000</a>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="{{ asset('assets/static/images/landing-page/r-6.png') }}" alt="">
+                        </div>
+                        <div class="price">
+                            <a href="">Rent Rp 800.000</a>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Kendaraan</th>
                                 <th>Tanggal Mulai</th>
