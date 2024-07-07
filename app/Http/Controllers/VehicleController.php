@@ -25,7 +25,8 @@ class VehicleController extends Controller
             'type' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'plate_number' => 'required|string|max:255',
+            'plate_number' => 'required|string|max:255|unique:vehicles,plate_number',
+            'transmission' => 'required|string|max:255', // Tambahkan validasi transmisi
             'year' => 'required|integer',
             'capacity' => 'required|integer',
             'rental_price' => 'required|numeric',
@@ -42,23 +43,14 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil ditambahkan.');
     }
 
-    public function show(Vehicle $vehicle)
-    {
-        return view('vehicles.show', compact('vehicle'));
-    }
-
-    public function edit(Vehicle $vehicle)
-    {
-        return view('vehicles.edit', compact('vehicle'));
-    }
-
     public function update(Request $request, Vehicle $vehicle)
     {
         $validated = $request->validate([
             'type' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'plate_number' => 'required|string|max:255',
+            'plate_number' => 'required|string|max:255|unique:vehicles,plate_number,' . $vehicle->id,
+            'transmission' => 'required|string|max:255', // Tambahkan validasi transmisi
             'year' => 'required|integer',
             'capacity' => 'required|integer',
             'rental_price' => 'required|numeric',
@@ -78,6 +70,17 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil diperbarui.');
     }
 
+
+    public function show(Vehicle $vehicle)
+    {
+        return view('vehicles.show', compact('vehicle'));
+    }
+
+    public function edit(Vehicle $vehicle)
+    {
+        return view('vehicles.edit', compact('vehicle'));
+    }
+
     public function destroy(Vehicle $vehicle)
     {
         if ($vehicle->image) {
@@ -87,6 +90,12 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil dihapus.');
+    }
+
+    public function checkPlateNumber(Request $request)
+    {
+        $exists = Vehicle::where('plate_number', $request->plate_number)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }
 

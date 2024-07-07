@@ -59,6 +59,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('admin/bookings/{id}/reject-payment', [BookingController::class, 'rejectPayment'])->name('admin.bookings.rejectPayment');
 });
 
-
+Route::get('/check-plate-number', [VehicleController::class, 'checkPlateNumber'])->name('checkPlateNumber');
 
 require __DIR__.'/auth.php';

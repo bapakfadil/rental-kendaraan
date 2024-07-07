@@ -10,7 +10,7 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type', 'brand', 'model', 'plate_number', 'year', 'capacity', 'rental_price', 'image'
+        'type', 'brand', 'model', 'plate_number', 'transmission', 'year', 'capacity', 'rental_price', 'image'
     ];
 
     public function bookings()
@@ -18,4 +18,3 @@ class Vehicle extends Model
         return $this->hasMany(Booking::class);
     }
 }
-

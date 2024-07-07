@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('plate_number')->unique();
+            $table->string('transmission'); // Tambahkan kolom transmission
             $table->integer('year');
             $table->integer('capacity');
             $table->decimal('rental_price', 10, 2);
             $table->string('image')->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
