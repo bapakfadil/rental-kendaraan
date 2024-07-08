@@ -10,7 +10,8 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'vehicle_id', 'start_date', 'end_date', 'status', 'payment_proof'
+        'user_id', 'vehicle_id', 'start_date', 'end_date', 'status', 'payment_proof',
+        'full_name', 'nik', 'address', 'ktp_image'
     ];
 
     public function user()
@@ -23,4 +24,3 @@ class Booking extends Model
         return $this->belongsTo(Vehicle::class);
     }
 }
-

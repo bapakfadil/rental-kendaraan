@@ -16,6 +16,10 @@ class CreateBookingsTable extends Migration
             $table->date('end_date');
             $table->string('status')->default('pending'); // Kolom status sebagai string
             $table->string('payment_proof')->nullable();
+            $table->string('full_name'); // Kolom untuk nama lengkap
+            $table->string('nik'); // Kolom untuk NIK
+            $table->text('address'); // Kolom untuk alamat
+            $table->string('ktp_image')->nullable(); // Kolom untuk foto KTP
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -28,4 +32,3 @@ class CreateBookingsTable extends Migration
         Schema::dropIfExists('bookings');
     }
 }
-
