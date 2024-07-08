@@ -10,16 +10,53 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h1 class="text-2xl font-bold mb-4">Detail Booking</h1>
-                    <div class="mb-4">
-                        <strong>Nama Lengkap:</strong> {{ $booking->full_name }}<br>
-                        <strong>NIK:</strong> {{ $booking->nik }}<br>
-                        <strong>Alamat:</strong> {{ $booking->address }}<br>
-                        <strong>Kendaraan:</strong> {{ $booking->vehicle->model }}<br>
-                        <strong>Tanggal Mulai:</strong> {{ $booking->start_date }}<br>
-                        <strong>Tanggal Akhir:</strong> {{ $booking->end_date }}<br>
-                        <strong>Status:</strong> {{ $booking->status }}<br>
-                    </div>
-                    <a href="{{ route('customer.bookings') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Kembali</a>
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                                <input type="text" value="{{ $booking->full_name }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">NIK</label>
+                                <input type="text" value="{{ $booking->nik }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div class="col-span-1 md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700">Alamat</label>
+                                <textarea rows="3" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>{{ $booking->address }}</textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
+                                <input type="text" value="{{ $booking->vehicle->model }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
+                                <input type="date" value="{{ $booking->start_date }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tanggal Akhir</label>
+                                <input type="date" value="{{ $booking->end_date }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Status</label>
+                                <input type="text" value="{{ $booking->status }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            @if($booking->ktp_image)
+                            <div class="col-span-1 md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700">Foto KTP</label>
+                                <img src="{{ asset('uploads/' . $booking->ktp_image) }}" alt="Foto KTP" class="mt-1 max-h-48">
+                            </div>
+                            @endif
+                            @if($booking->payment_proof)
+                            <div class="col-span-1 md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700">Bukti Pembayaran</label>
+                                <img src="{{ asset('uploads/' . $booking->payment_proof) }}" alt="Bukti Pembayaran" class="mt-1 max-h-48">
+                            </div>
+                            @endif
+                        </div>
+                        <div class="mt-6">
+                            <a href="{{ route('customer.bookings') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Kembali</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
