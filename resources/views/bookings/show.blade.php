@@ -53,8 +53,11 @@
                             </div>
                             @endif
                         </div>
-                        <div class="mt-6">
+                        <div class="mt-6 flex justify-between">
                             <a href="{{ route('customer.bookings') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Kembali</a>
+                            @if($booking->status === 'confirmed')
+                            <a href="{{ route('bookings.invoice', $booking->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Lihat Invoice</a>
+                            @endif
                         </div>
                     </form>
                 </div>

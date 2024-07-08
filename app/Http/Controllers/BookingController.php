@@ -162,4 +162,15 @@ class BookingController extends Controller
         $bookings = Booking::all();
         return view('bookings.admin.index', compact('bookings'));
     }
+
+    public function showInvoice($id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        if ($booking->status !== 'confirmed') {
+            return redirect()->back()->with('error', 'Booking belum dikonfirmasi.');
+        }
+
+        return view('bookings.invoice', compact('booking'));
+    }
 }
