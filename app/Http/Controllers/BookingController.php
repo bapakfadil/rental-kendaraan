@@ -31,7 +31,7 @@ class BookingController extends Controller
         $isAvailable = $this->checkAvailability($request->vehicle_id, $request->start_date, $request->end_date);
 
         if (!$isAvailable) {
-            return redirect()->back()->withErrors(['error' => 'Kendaraan tidak tersedia pada tanggal yang dipilih.']);
+            return redirect()->back()->with('error', 'Kendaraan tidak tersedia pada tanggal yang dipilih.');
         }
 
         if ($request->hasFile('ktp_image')) {

@@ -39,7 +39,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Route untuk customer dan admin
 Route::middleware(['auth', 'role:customer,admin'])->group(function () {
-    // Route yang bisa diakses oleh customer dan admin
     Route::resource('bookings', BookingController::class)->only(['show', 'create', 'store']);
     Route::get('bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
     Route::get('bookings/create', [BookingController::class, 'create'])->name('bookings.create');
