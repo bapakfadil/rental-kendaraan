@@ -20,6 +20,7 @@ class CreateBookingsTable extends Migration
             $table->string('nik'); // Kolom untuk NIK
             $table->text('address'); // Kolom untuk alamat
             $table->string('ktp_image')->nullable(); // Kolom untuk foto KTP
+            $table->decimal('total_price', 10, 2)->nullable(); // Kolom untuk total harga sewa
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

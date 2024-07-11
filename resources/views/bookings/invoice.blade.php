@@ -1,3 +1,4 @@
+<!-- resources/views/bookings/invoice.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -20,12 +21,36 @@
                             <p class="mt-1 text-sm text-gray-900">{{ $booking->nik }}</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
-                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->model }}</p>
+                            <label class="block text-sm font-medium text-gray-700">Alamat</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->address }}</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Harga Sewa Kendaraan</label>
-                            <p class="mt-1 text-sm text-gray-900">Rp {{ number_format($booking->vehicle->rental_price, 2) }}</p>
+                            <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->brand }} {{ $booking->vehicle->model }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nomor Plat</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->plate_number }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tipe</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->type }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Transmisi</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->transmission }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tahun</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->year }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Kapasitas</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->vehicle->capacity }} seats</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Harga Sewa per Hari</label>
+                            <p class="mt-1 text-sm text-gray-900">Rp {{ number_format($booking->vehicle->rental_price, 0, ',', '.') }}</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Tanggal Mulai Sewa</label>
@@ -34,6 +59,10 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Tanggal Akhir Sewa</label>
                             <p class="mt-1 text-sm text-gray-900">{{ $booking->end_date }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Total Harga Sewa</label>
+                            <p class="mt-1 text-sm text-gray-900">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</p>
                         </div>
                         @if($booking->payment_proof)
                         <div class="col-span-1 md:col-span-2">

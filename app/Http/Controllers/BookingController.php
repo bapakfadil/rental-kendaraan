@@ -27,12 +27,13 @@ class BookingController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
-        // Cek ketersediaan kendaraan
-        $isAvailable = $this->checkAvailability($request->vehicle_id, $request->start_date, $request->end_date);
-
-        if (!$isAvailable) {
-            return redirect()->back()->with('error', 'Kendaraan tidak tersedia pada tanggal yang dipilih.');
-        }
+        $vehicle = Vehicle::find($request->vehicle_id);
+        $rentalPricePerDay = $vehicle->rental_price;
+        $startDate = new \DateTime($request->start_date);
+        $endDate = new \DateTime($request->end_date);
+        $interval = $startDate->diff($endDate);
+        $days = $interval->days + 1; // +1 to include the start date
+        $totalPrice = $rentalPricePerDay * $days;
 
         if ($request->hasFile('ktp_image')) {
             $image = $request->file('ktp_image');
@@ -51,6 +52,7 @@ class BookingController extends Controller
         $booking->nik = $request->nik;
         $booking->address = $request->address;
         $booking->ktp_image = $ktpImageName ?? null;
+        $booking->total_price = $totalPrice;
         $booking->save();
 
         return redirect()->route('customer.bookings')->with('success', 'Booking berhasil dibuat.');

@@ -26,7 +26,31 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
-                                <input type="text" value="{{ $booking->vehicle->model }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                <input type="text" value="{{ $booking->vehicle->brand }} {{ $booking->vehicle->model }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Nomor Plat</label>
+                                <input type="text" value="{{ $booking->vehicle->plate_number }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tipe</label>
+                                <input type="text" value="{{ $booking->vehicle->type }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Transmisi</label>
+                                <input type="text" value="{{ $booking->vehicle->transmission }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tahun</label>
+                                <input type="text" value="{{ $booking->vehicle->year }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Kapasitas</label>
+                                <input type="text" value="{{ $booking->vehicle->capacity }} seats" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Harga Sewa per Hari</label>
+                                <input type="text" value="Rp {{ number_format($booking->vehicle->rental_price, 0, ',', '.') }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
@@ -39,6 +63,10 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Status</label>
                                 <input type="text" value="{{ $booking->status }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Total Harga Sewa</label>
+                                <input type="text" value="Rp {{ number_format($booking->total_price, 0, ',', '.') }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
                             </div>
                             @if($booking->ktp_image)
                             <div class="col-span-1 md:col-span-2">
