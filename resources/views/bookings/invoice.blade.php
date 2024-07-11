@@ -13,6 +13,10 @@
                     <h1 class="text-2xl font-bold mb-4">Invoice Booking</h1>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
+                            <label class="block text-sm font-medium text-gray-700">Nomor Invoice</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ $booking->invoice_number }}</p>
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
                             <p class="mt-1 text-sm text-gray-900">{{ $booking->full_name }}</p>
                         </div>
