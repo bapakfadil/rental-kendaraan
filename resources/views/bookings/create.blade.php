@@ -14,7 +14,7 @@
                             <span class="block sm:inline">{{ session('error') }}</span>
                         </div>
                     @endif
-                    <form action="{{ route('bookings.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('bookings.store') }}" method="POST" enctype="multipart/form-data" id="bookingForm">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -36,8 +36,11 @@
                             <div>
                                 <label for="vehicle_id" class="block text-sm font-medium text-gray-700">Pilih Kendaraan</label>
                                 <select name="vehicle_id" id="vehicle_id" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                    <option value="">Pilih Kendaraan</option>
                                     @foreach($vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}">{{ $vehicle->model }}</option>
+                                        <option value="{{ $vehicle->id }}" data-price="{{ $vehicle->rental_price }}">
+                                            {{ $vehicle->brand }} {{ $vehicle->model }} - {{ $vehicle->plate_number }} - {{ $vehicle->type }} - {{ $vehicle->transmission }} - {{ $vehicle->year }} - {{ $vehicle->capacity }} seats - Rp {{ number_format($vehicle->rental_price, 0, ',', '.') }}/day
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,6 +52,10 @@
                                 <label for="end_date" class="block text-sm font-medium text-gray-700">Tanggal Akhir Sewa</label>
                                 <input type="date" name="end_date" id="end_date" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                             </div>
+                            <div class="col-span-1 md:col-span-2">
+                                <label for="rental_price" class="block text-sm font-medium text-gray-700">Biaya Sewa Total</label>
+                                <input type="text" name="rental_price" id="rental_price" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" readonly>
+                            </div>
                         </div>
                         <div class="mt-6">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Buat Booking</button>
@@ -58,4 +65,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const vehicleSelect = document.getElementById('vehicle_id');
+            const startDateInput = document.getElementById('start_date');
+            const endDateInput = document.getElementById('end_date');
+            const rentalPriceInput = document.getElementById('rental_price');
+
+            function calculateRentalPrice() {
+                const vehicleOption = vehicleSelect.options[vehicleSelect.selectedIndex];
+                const rentalPricePerDay = vehicleOption ? parseFloat(vehicleOption.getAttribute('data-price')) : 0;
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                if (vehicleSelect.value && startDateInput.value && endDateInput.value) {
+                    const timeDifference = endDate.getTime() - startDate.getTime();
+                    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24)) + 1; // +1 to include the start date
+                    const totalRentalPrice = rentalPricePerDay * daysDifference;
+
+                    rentalPriceInput.value = `Rp ${totalRentalPrice.toLocaleString('id-ID')}`;
+                } else {
+                    rentalPriceInput.value = '';
+                }
+            }
+
+            vehicleSelect.addEventListener('change', calculateRentalPrice);
+            startDateInput.addEventListener('change', calculateRentalPrice);
+            endDateInput.addEventListener('change', calculateRentalPrice);
+        });
+    </script>
 </x-app-layout>
