@@ -50,7 +50,7 @@
                         @foreach($recentBookings as $booking)
                             <tr>
                                 <td class="py-2">{{ $booking->user->name }}</td>
-                                <td class="py-2">{{ $booking->vehicle->model }}</td>
+                                <td class="py-2">{{ $booking->vehicle ? $booking->vehicle->model : 'Kendaraan tidak ditemukan' }}</td>
                                 <td class="py-2">{{ $booking->created_at->format('d M Y') }}</td>
                                 <td class="py-2">
                                     <span class="{{ $booking->status === 'confirmed' ? 'text-green-600' : 'text-yellow-600' }}">

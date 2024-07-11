@@ -41,15 +41,15 @@
                                     <td class="px-6 py-2 border-b border-gray-300 text-center">{{ $booking->status }}</td>
                                     <td class="px-6 py-2 border-b border-gray-300 space-x-2">
                                         <a href="{{ route('bookings.show', $booking->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Detail</a>
-                                        @if ($booking->status == 'pending' || $booking->status == 'payment_pending' || $booking->status == 'payment_rejected')
+                                        @if ($booking->status == 'pending' || $booking->status == 'payment_rejected')
                                             <a href="{{ route('customer.bookings.uploadPayment', $booking->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">Upload Pembayaran</a>
-                                            @if ($booking->status != 'payment_rejected')
-                                                <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST" class="inline-block">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" onclick="confirmCancellation({{ $booking->id }})">Batalkan</button>
-                                                </form>
-                                            @endif
+                                        @endif
+                                        @if ($booking->status == 'pending' || $booking->status == 'payment_pending' || $booking->status == 'payment_rejected')
+                                            <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST" class="inline-block">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" onclick="confirmCancellation({{ $booking->id }})">Batalkan</button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>
