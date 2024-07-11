@@ -36,10 +36,11 @@
                                     <td class="px-6 py-4 border-b border-gray-300">{{ $booking->start_date }}</td>
                                     <td class="px-6 py-4 border-b border-gray-300">{{ $booking->end_date }}</td>
                                     <td class="px-6 py-4 border-b border-gray-300">{{ $booking->status }}</td>
-                                    <td class="px-6 py-4 border-b border-gray-300 space-x-2">
+                                    <td class="px-6 py-4 border-b border-gray-300">
                                         <a href="{{ route('bookings.show', $booking->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Detail</a>
-                                        @if(auth()->user()->role === 'admin')
-                                            <a href="{{ route('bookings.edit', $booking->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">Edit</a>
+                                        {{-- <a href="{{ route('bookings.edit', $booking->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">Edit</a> --}}
+                                        @if ($booking->status == 'payment_pending')
+                                            <a href="{{ route('admin.bookings.verifyPayment', $booking->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Verify</a>
                                         @endif
                                         <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="inline-block" id="deleteForm{{ $booking->id }}">
                                             @csrf
