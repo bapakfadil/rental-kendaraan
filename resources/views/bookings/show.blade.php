@@ -24,34 +24,40 @@
                                 <label class="block text-sm font-medium text-gray-700">Alamat</label>
                                 <textarea rows="3" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>{{ $booking->address }}</textarea>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
-                                <input type="text" value="{{ $booking->vehicle->brand }} {{ $booking->vehicle->model }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Nomor Plat</label>
-                                <input type="text" value="{{ $booking->vehicle->plate_number }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Tipe</label>
-                                <input type="text" value="{{ $booking->vehicle->type }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Transmisi</label>
-                                <input type="text" value="{{ $booking->vehicle->transmission }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Tahun</label>
-                                <input type="text" value="{{ $booking->vehicle->year }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kapasitas</label>
-                                <input type="text" value="{{ $booking->vehicle->capacity }} seats" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Harga Sewa per Hari</label>
-                                <input type="text" value="Rp {{ number_format($booking->vehicle->rental_price, 0, ',', '.') }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
-                            </div>
+                            @if($booking->vehicle)
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Kendaraan</label>
+                                    <input type="text" value="{{ $booking->vehicle->brand }} {{ $booking->vehicle->model }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Nomor Plat</label>
+                                    <input type="text" value="{{ $booking->vehicle->plate_number }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Tipe</label>
+                                    <input type="text" value="{{ $booking->vehicle->type }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Transmisi</label>
+                                    <input type="text" value="{{ $booking->vehicle->transmission }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Tahun</label>
+                                    <input type="text" value="{{ $booking->vehicle->year }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Kapasitas</label>
+                                    <input type="text" value="{{ $booking->vehicle->capacity }} seats" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Harga Sewa per Hari</label>
+                                    <input type="text" value="Rp {{ number_format($booking->vehicle->rental_price, 0, ',', '.') }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                                </div>
+                            @else
+                                <div class="col-span-1 md:col-span-2 text-red-500">
+                                    <p>Kendaraan yang dipesan telah dihapus.</p>
+                                </div>
+                            @endif
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
                                 <input type="date" value="{{ $booking->start_date }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
