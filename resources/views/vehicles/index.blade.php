@@ -1,3 +1,4 @@
+<!-- resources/views/vehicles/index.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,12 +16,12 @@
                             <thead>
                                 <tr>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">No.</th>
+                                    <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Foto</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Jenis</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Merek</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Model</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nomor Plat</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tahun</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Kapasitas</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Harga Sewa</th>
                                     <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                                 </tr>
@@ -28,13 +29,19 @@
                             <tbody>
                                 @foreach($vehicles as $vehicle)
                                 <tr>
-                                    <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->id }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $loop->iteration }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">
+                                        @if($vehicle->image)
+                                            <img src="{{ asset('uploads/' . $vehicle->image) }}" alt="Foto Kendaraan" class="h-16 w-16 object-cover">
+                                        @else
+                                            <img src="{{ asset('images/default-vehicle.jpg') }}" alt="Foto Kendaraan" class="h-16 w-16 object-cover">
+                                        @endif
+                                    </td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->type }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->brand }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->model }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->plate_number }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->year }}</td>
-                                    <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->capacity }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $vehicle->rental_price }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">
                                         <a href="{{ route('vehicles.show', $vehicle->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Detail</a>

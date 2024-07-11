@@ -26,16 +26,19 @@ class VehicleController extends Controller
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'plate_number' => 'required|string|max:255|unique:vehicles,plate_number',
-            'transmission' => 'required|string|max:255', // Tambahkan validasi transmisi
+            'transmission' => 'required|string|max:255',
             'year' => 'required|integer',
             'capacity' => 'required|integer',
             'rental_price' => 'required|numeric',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('vehicles', 'public');
-            $validated['image'] = $path;
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $imageName);
+            $validated['image'] = $imageName;
         }
 
         Vehicle::create($validated);
@@ -50,26 +53,28 @@ class VehicleController extends Controller
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'plate_number' => 'required|string|max:255|unique:vehicles,plate_number,' . $vehicle->id,
-            'transmission' => 'required|string|max:255', // Tambahkan validasi transmisi
+            'transmission' => 'required|string|max:255',
             'year' => 'required|integer',
             'capacity' => 'required|integer',
             'rental_price' => 'required|numeric',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
             if ($vehicle->image) {
-                Storage::disk('public')->delete($vehicle->image);
+                Storage::disk('public')->delete('/uploads/' . $vehicle->image);
             }
-            $path = $request->file('image')->store('vehicles', 'public');
-            $validated['image'] = $path;
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $imageName);
+            $validated['image'] = $imageName;
         }
 
         $vehicle->update($validated);
 
         return redirect()->route('vehicles.index')->with('success', 'Kendaraan berhasil diperbarui.');
     }
-
 
     public function show(Vehicle $vehicle)
     {
@@ -84,7 +89,7 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         if ($vehicle->image) {
-            Storage::disk('public')->delete($vehicle->image);
+            Storage::disk('public')->delete('/uploads/' . $vehicle->image);
         }
 
         $vehicle->delete();
@@ -98,5 +103,3 @@ class VehicleController extends Controller
         return response()->json(['exists' => $exists]);
     }
 }
-
-
