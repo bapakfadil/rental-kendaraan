@@ -53,6 +53,10 @@
                                 <input type="date" name="end_date" id="end_date" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                             </div>
                             <div class="col-span-1 md:col-span-2">
+                                <label for="account_info" class="block text-sm font-medium text-gray-700">No Rekening</label>
+                                <p class="mt-1 text-gray-700">Bank BCA<br>a/n PT. Pujangga Mandiri Trans<br>No. Rek: 12345678910</p>
+                            </div>
+                            <div class="col-span-1 md:col-span-2">
                                 <label for="rental_price" class="block text-sm font-medium text-gray-700">Biaya Sewa Total</label>
                                 <input type="text" name="rental_price" id="rental_price" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" readonly>
                             </div>
