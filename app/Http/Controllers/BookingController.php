@@ -27,14 +27,21 @@ class BookingController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
+        // Pengecekan ketersediaan kendaraan
+        if (!$this->checkAvailability($request->vehicle_id, $request->start_date, $request->end_date)) {
+            return redirect()->back()->with('error', 'Kendaraan tidak tersedia pada tanggal yang dipilih.');
+        }
+
+        // Menghitung total harga sewa
         $vehicle = Vehicle::find($request->vehicle_id);
         $rentalPricePerDay = $vehicle->rental_price;
         $startDate = new \DateTime($request->start_date);
         $endDate = new \DateTime($request->end_date);
         $interval = $startDate->diff($endDate);
-        $days = $interval->days + 1; // +1 to include the start date
+        $days = $interval->days + 1;
         $totalPrice = $rentalPricePerDay * $days;
 
+        // Mengunggah gambar KTP
         if ($request->hasFile('ktp_image')) {
             $image = $request->file('ktp_image');
             $ktpImageName = time() . '.' . $image->getClientOriginalExtension();
@@ -42,6 +49,7 @@ class BookingController extends Controller
             $image->move($destinationPath, $ktpImageName);
         }
 
+        // Menyimpan data booking
         $booking = new Booking();
         $booking->user_id = Auth::id();
         $booking->vehicle_id = $request->vehicle_id;
@@ -58,6 +66,7 @@ class BookingController extends Controller
         return redirect()->route('customer.bookings')->with('success', 'Booking berhasil dibuat.');
     }
 
+    // Function untuk pengecekan ketersediaan kendaraan
     private function checkAvailability($vehicleId, $startDate, $endDate)
     {
         $conflictingBookings = Booking::where('vehicle_id', $vehicleId)
@@ -74,6 +83,8 @@ class BookingController extends Controller
 
         return !$conflictingBookings;
     }
+
+
 
     public function customerBookings()
     {
@@ -175,4 +186,33 @@ class BookingController extends Controller
 
         return view('bookings.invoice', compact('booking'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        if (!$this->checkAvailability($booking->vehicle_id, $request->start_date, $request->end_date)) {
+            return redirect()->back()->with('error', 'Kendaraan tidak tersedia pada tanggal yang dipilih.');
+        }
+
+        $booking->start_date = $request->start_date;
+        $booking->end_date = $request->end_date;
+        $booking->save();
+
+        return redirect()->route('bookings.index')->with('success', 'Booking berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->delete();
+
+        return redirect()->route('bookings.index')->with('success', 'Transaksi pemesanan berhasil dihapus.');
+    }
+
 }
