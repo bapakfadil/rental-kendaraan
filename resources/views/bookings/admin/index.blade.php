@@ -13,7 +13,7 @@
                         <table class="min-w-full bg-white border border-gray-300">
                             <thead class="bg-gray-100">
                                 <tr>
-                                    <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
                                     <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
                                     <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kendaraan</th>
                                     <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Mulai</th>
@@ -25,7 +25,7 @@
                             <tbody>
                                 @foreach($bookings as $booking)
                                 <tr>
-                                    <td class="px-6 py-4 border-b border-gray-300">{{ $booking->id }}</td>
+                                    <td class="px-6 py-4 border-b border-gray-300">{{ $loop->iteration }}</td>
                                     <td class="px-6 py-4 border-b border-gray-300">
                                         @if($booking->vehicle)
                                             {{ $booking->vehicle->model }}

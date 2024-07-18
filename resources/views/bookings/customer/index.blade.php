@@ -23,7 +23,7 @@
                         <table class="min-w-full bg-white border border-gray-300">
                             <thead class="bg-gray-100">
                                 <tr>
-                                    <th class="px-1 py-2 border-b border-gray-300 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-1 py-2 border-b border-gray-300 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
                                     <th class="px-1 py-2 border-b border-gray-300 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kendaraan</th>
                                     <th class="px-1 py-2 border-b border-gray-300 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Mulai</th>
                                     <th class="px-1 py-2 border-b border-gray-300 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Akhir</th>
@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach($bookings as $booking)
                                 <tr>
-                                    <td class="px-6 py-2 border-b border-gray-300">{{ $booking->id }}</td>
+                                    <td class="px-6 py-2 border-b border-gray-300">{{ $loop->iteration }}</td>
                                     <td class="px-6 py-2 border-b border-gray-300">{{ $booking->vehicle ? $booking->vehicle->model : 'Kendaraan tidak ditemukan' }}</td>
                                     <td class="px-6 py-2 border-b border-gray-300 text-center">{{ $booking->start_date }}</td>
                                     <td class="px-6 py-2 border-b border-gray-300 text-center">{{ $booking->end_date }}</td>
