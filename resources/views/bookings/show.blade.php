@@ -24,6 +24,14 @@
                                 <label class="block text-sm font-medium text-gray-700">Alamat</label>
                                 <textarea rows="3" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>{{ $booking->address }}</textarea>
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="text" value="{{ $booking->email_invoice }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Nomor HP</label>
+                                <input type="text" value="{{ $booking->phone_number }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" readonly>
+                            </div>
                             @if($booking->vehicle)
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Kendaraan</label>

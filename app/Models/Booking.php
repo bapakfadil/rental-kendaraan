@@ -11,7 +11,8 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id', 'vehicle_id', 'start_date', 'end_date', 'status', 'payment_proof',
-        'full_name', 'nik', 'address', 'ktp_image', 'total_price', 'invoice_number'
+        'full_name', 'nik', 'address', 'ktp_image', 'total_price', 'invoice_number',
+        'email_invoice', 'phone_number'
     ];
 
     public static function boot()

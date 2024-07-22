@@ -25,6 +25,8 @@ class BookingController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
+            'email_invoice' => 'required|email|max:255',
+            'phone_number' => 'required|string|max:15',
         ]);
 
         // Pengecekan ketersediaan kendaraan
@@ -61,6 +63,8 @@ class BookingController extends Controller
         $booking->address = $request->address;
         $booking->ktp_image = $ktpImageName ?? null;
         $booking->total_price = $totalPrice;
+        $booking->email_invoice = $request->email_invoice;
+        $booking->phone_number = $request->phone_number;
         $booking->save();
 
         return redirect()->route('customer.bookings')->with('success', 'Booking berhasil dibuat.');
