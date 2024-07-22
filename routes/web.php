@@ -68,5 +68,6 @@ Route::post('lupa-password', [CustomPasswordResetController::class, 'handleForgo
 
 Route::get('rekap-penyewaan', [RekapPenyewaanController::class, 'index'])->name('rekap.penyewaan');
 Route::post('rekap-penyewaan', [RekapPenyewaanController::class, 'show'])->name('rekap.penyewaan.show');
+Route::post('rekap-penyewaan/cetak', [RekapPenyewaanController::class, 'cetakPDF'])->name('rekap.penyewaan.cetak');
 
 require __DIR__.'/auth.php';

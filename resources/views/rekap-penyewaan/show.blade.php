@@ -38,8 +38,6 @@
                                                 <span class="text-red-500">Null</span>
                                             @endif
                                         </td>
-                                        {{-- <td class="px-6 py-4 border-b border-gray-300">{{ $booking->vehicle->brand }} {{ $booking->vehicle->model }}</td>
-                                        <td class="px-6 py-4 border-b border-gray-300">{{ $booking->vehicle->plate_number }}</td> --}}
                                         <td class="px-6 py-4 border-b border-gray-300">{{ $booking->start_date->format('d-m-Y') }}</td>
                                         <td class="px-6 py-4 border-b border-gray-300">{{ $booking->end_date->format('d-m-Y') }}</td>
                                         <td class="px-6 py-4 border-b border-gray-300">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</td>
@@ -48,8 +46,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-6">
-                        <a href="{{ route('rekap.penyewaan') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Kembali</a>
+                    <div class="mt-6 flex">
+                        <a href="{{ route('rekap.penyewaan') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">Kembali</a>
+                        <form action="{{ route('rekap.penyewaan.cetak') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="start_date" value="{{ $startDate->toDateString() }}">
+                            <input type="hidden" name="end_date" value="{{ $endDate->toDateString() }}">
+                            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cetak PDF</button>
+                        </form>
                     </div>
                 </div>
             </div>
