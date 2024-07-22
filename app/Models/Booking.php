@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Booking extends Model
 {
@@ -14,6 +15,16 @@ class Booking extends Model
         'full_name', 'nik', 'address', 'ktp_image', 'total_price', 'invoice_number',
         'email_invoice', 'phone_number'
     ];
+
+    protected $dates = [
+        'start_date', 'end_date'
+    ];
+
+    // Alternatively, you can use $casts
+    // protected $casts = [
+    //     'start_date' => 'datetime',
+    //     'end_date' => 'datetime',
+    // ];
 
     public static function boot()
     {

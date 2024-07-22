@@ -26,6 +26,9 @@
                         <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.*')">
                             {{ __('Manajemen Pelanggan') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('rekap.penyewaan')" :active="request()->routeIs('rekap.*')">
+                            {{ __('Laporan Sewa') }}
+                        </x-nav-link>
                     @elseif(Auth::user()->role == 'customer')
                         <x-nav-link :href="route('customer.bookings')" :active="request()->routeIs('customer.bookings')">
                             {{ __('Riwayat Pemesanan') }}

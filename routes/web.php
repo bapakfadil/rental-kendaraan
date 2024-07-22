@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomPasswordResetController;
+use App\Http\Controllers\RekapPenyewaanController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -64,5 +65,8 @@ Route::get('bookings/{id}/invoice', [BookingController::class, 'showInvoice'])->
 
 Route::get('lupa-password', [CustomPasswordResetController::class, 'showForgotPasswordForm'])->name('custom.password.request');
 Route::post('lupa-password', [CustomPasswordResetController::class, 'handleForgotPassword'])->name('custom.password.reset');
+
+Route::get('rekap-penyewaan', [RekapPenyewaanController::class, 'index'])->name('rekap.penyewaan');
+Route::post('rekap-penyewaan', [RekapPenyewaanController::class, 'show'])->name('rekap.penyewaan.show');
 
 require __DIR__.'/auth.php';
