@@ -26,6 +26,7 @@
                                 @foreach($bookings as $booking)
                                 <tr>
                                     <td class="px-6 py-4 border-b border-gray-300">{{ $loop->iteration }}</td>
+                                    <td class="px-6 py-4 border-b border-gray-300">{{ $booking->user->name }}</td>
                                     <td class="px-6 py-4 border-b border-gray-300">
                                         @if($booking->vehicle)
                                             {{ $booking->vehicle->model }}
