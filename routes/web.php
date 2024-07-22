@@ -5,6 +5,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CustomPasswordResetController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,5 +61,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::get('/check-plate-number', [VehicleController::class, 'checkPlateNumber'])->name('checkPlateNumber');
 Route::get('bookings/{id}/invoice', [BookingController::class, 'showInvoice'])->name('bookings.invoice');
+
+Route::get('lupa-password', [CustomPasswordResetController::class, 'showForgotPasswordForm'])->name('custom.password.request');
+Route::post('lupa-password', [CustomPasswordResetController::class, 'handleForgotPassword'])->name('custom.password.reset');
 
 require __DIR__.'/auth.php';

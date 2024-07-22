@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Lupa password? Tenang, masukkan saja email dan Unique Code pada saat pendaftaran :)') }}
+        {{ __('Forgot your password? No problem. Just let us know your email address, unique code, and new password.') }}
     </div>
 
     <!-- Session Status -->

@@ -1,29 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
 
-class NewPasswordController extends Controller
+class CustomPasswordResetController extends Controller
 {
     /**
-     * Display the password reset view.
+     * Display the custom forgot password form.
      */
-    public function create(): View
+    public function showForgotPasswordForm()
     {
-        return view('auth.forgot-password');
+        return view('auth.lupa-password');
     }
 
     /**
-     * Handle an incoming new password request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Handle the forgot password request.
      */
-    public function store(Request $request)
+    public function handleForgotPassword(Request $request)
     {
         $request->validate([
             'email' => ['required', 'email'],
